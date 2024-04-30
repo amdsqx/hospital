@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<odoo>
+
+    <!-- hospital.patient form view -->
+    <record id="hospital_patient_view_form" model="ir.ui.view">
+        <field name="name">hospital.patient.view.form</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>        
+                            <!-- Add your fields here -->
+                            <field name="name"/>
+                            <field name="age"/>  
+                        </group>
+                        <group>
+                            <field name="ref"/>
+                            <field name="gender"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- hospital.patient tree view -->
+    <record id="hospital_patient_view_tree" model="ir.ui.view">
+        <field name="name">hospital.patient.view.tree</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <tree>
+                <!-- Add your fields here -->
+                <field name="name" string="Nama Pasien"/>
+                <field name="ref"/>
+                <field name="age"/>
+                <field name="gender"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- hospital.patient search view -->
+    <record id="hospital_patient_view_search" model="ir.ui.view">
+        <field name="name">hospital.patient.view.search</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <search string="Search Description">
+                <!-- Add your fields here -->
+                <field name="name" string="Nama Pasien" filter_domain="['|', ('name', 'ilike', 'self'), ('ref', 'ilike', 'self')]"/>
+                <field name="ref"/>
+                <field name="age" string="Umur Pasien"/>
+                <field name="gender" string="Jenis Kelamin Pasien"/>
+                <filter name="filter_male" string="Laki-laki" domain="[('gender', '=', 'L')]"/>
+                <separator/>
+                <filter name="filter_female" string="Perempuan" domain="[('gender', '=', 'P')]"/>
+                <separator/>
+                <filter name="filter_kids" string="Balita" domain="[('age', '&lt;=', '5')]"/>
+                <separator/>
+                <filter name="filter_archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_gender" string="Gender" context="{'group_by': 'gender'}" />
+                    <!-- <filter name="group_by_age" string="Usia" context="{'group_by': 'age'}"/> -->
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- name="res_model" copy dari name modal hospital patient -->
+    <record id="action_hospital_patient" model="ir.actions.act_window">
+        <field name="name">Pasien</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first patient!
+            </p>
+        </field>
+    </record>
+
+    <!-- Patient menu action anak dari Patient Details-->
+    <menuitem id        = "menu_patient"
+              name      = "Pasien"
+              action    = "action_hospital_patient"
+              parent    = "menu_patient_master"
+              sequence  = "0"/>
+
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+
+<odoo>
+
+    <!-- Hospital menu root (parent utama) -->
+    <menuitem id        = "menu_hospital_root"
+              name      = "Hospital"
+              web_icon  = "om_hospital,static/description/icon.png"
+              sequence  = "0"/>
+
+    <!-- Patitent Details menu categori (parent patient) -->
+    <menuitem id        = "menu_patient_master"
+              name      = "Detail Pasien"
+              parent    = "menu_hospital_root"
+              sequence  = "0"/>
+                  
+</odoo>
