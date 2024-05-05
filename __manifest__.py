@@ -17,10 +17,11 @@
     # for the full list
     'category': 'Hospital',
     'version': '0.1',
+    'license': 'LGPL-3',
     'sequence' : -100,
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base','mail'],
 
     # always loaded
     # untuk import data file modul xml
@@ -31,6 +32,8 @@
         'views/menu.xml',
         'views/patient_view.xml',
         'views/female_patient_view.xml',
+        'views/male_patient_view.xml',
+        'views/appointment_view.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

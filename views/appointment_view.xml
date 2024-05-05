@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<odoo>
+
+    <!-- hospital.appointment form view -->
+    <record id="hospital_appointment_view_form" model="ir.ui.view">
+        <field name="name">hospital.appointment.view.form</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <form string="" edit="0">
+                <header>
+                    <field name="state" widget="statusbar" nolabel="1" options="{'clickable':'1'}" statusbar_visible="draft,in_consultation,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="priority" widget="priority" class="mr-3"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>        
+                            <!-- Add your fields here -->
+                            <field name="patient_id"/>
+                            <field name="ref"/>
+                            <field name="gender"/>
+                            <field name="booking_date" help="Date of booking"/>
+                        </group>
+                        <group>
+                            <field name="appointment_time"/>
+                            <button name="action_test" string="yuhuu" type="object"
+                                    help="Sebuah pesan akan dicetak di log"
+                                    confirm="Apakah anda yakin?????"
+                                    class="oe_highlight"/>
+                            <button name="%(om_hospital.action_hospital_patient)d" string="Action Button" type="action"
+                                    help="Jika Anda mengklik tombol ini, Anda akan diarahkan ke catatan pasien"
+                                    confirm="Apakah anda yakin?"
+                                    class="oe_highlight"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="prescription" string="Resep">
+                            <!-- prestasi 28 -->
+                            <field name="prescription" placeholder="Catat resep anda!"/>
+                        </page>
+                        <page name="pharmacy" string="Obat">
+                        </page>
+                    </notebook>
+                </sheet>
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- hospital.appointment tree view -->
+    <record id="hospital_appointment_view_tree" model="ir.ui.view">
+        <field name="name">hospital.appointment.view.tree</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <!-- Add your fields here -->
+                <field name="patient_id"/>
+                <field name="appointment_time"/>
+                <field name="booking_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- hospital.appointment search view -->
+    <record id="hospital_appointment_view_search" model="ir.ui.view">
+        <field name="name">hospital.appointment.view.search</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <search string="Search Description">
+                <!-- Add your fields here -->
+            </search>
+        </field>
+    </record>
+
+    <!-- name="res_model" copy dari name modal hospital appointment -->
+    <record id="action_hospital_appointment" model="ir.actions.act_window">
+        <field name="name">Appointment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first appointment!
+            </p>
+        </field>
+    </record>
+
+    <!-- appointment menu action anak dari appointment Details-->
+    <menuitem id        = "menu_appointment"
+              name      = "Appointment"
+              action    = "action_hospital_appointment"
+              parent    = "menu_appointment_master"
+              sequence  = "0"/>
+
+</odoo>
